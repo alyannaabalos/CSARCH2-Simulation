@@ -1,2 +1,2 @@
 # CSARCH2-Simulation
-# Run Index.html on a browser to run the webapplication
+Go to (https://alyannaabalos.github.io/PG7-CSARCH2-Simulation/) on your browser to run the web application.
