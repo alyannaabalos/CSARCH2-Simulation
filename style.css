@@ -38,6 +38,15 @@ input {
     border: 2px solid black;
 }
 
+button {     
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;  
+    vertical-align: middle;
+}
+
 
 .bcdGenerator {
     background-color:rgb(219, 182, 251);
