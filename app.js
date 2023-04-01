@@ -175,7 +175,7 @@ function decimalToBCD() {
 
 function bcdToDECIMAL() {
     //display string "convert"
-    document.getElementById("output2").innerHTML = "CONVERTING TO BCD..." + "<br>";
+    document.getElementById("output2").innerHTML = "CONVERTING TO DECIMAL..." + "<br>";
     //convert densely-packed BCD from input and output the decimal
     let x = document.getElementById("input2").value;
     let decimal = 0;
