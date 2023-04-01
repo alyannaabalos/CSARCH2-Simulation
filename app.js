@@ -1,11 +1,10 @@
 const convertButton1 = document.querySelector('[convert-1]')
 const convertButton2 = document.querySelector('[convert-2]')
-convertButton1.onclick = ()    => { convert1(); }
-convertButton2.onclick = ()    => { alert ("Converting BCD to Decimal"); }
+convertButton1.onclick = ()    => { decimalToBCD(); }
+convertButton2.onclick = ()    => { bcdToDECIMAL(); }
 
-// this function is called when the convertButton1 is clicked and it increments the input take from the html element
-// with input id dec and increments it by 1 and then displays the result in the html output element with id 'y'
-function convert1() {
+// this function is called when the convertButton1 is clicked and it converts the decimal number to BCD
+function decimalToBCD() {
     const x = document.getElementById("dec").value;
 
     let packed = "";
@@ -160,3 +159,20 @@ function convert1() {
 }
 
 
+function bcdToDECIMAL() {
+    //display string "convert"
+    document.getElementById("output2").innerHTML = "CONVERTING TO BCD..." + "<br>";
+    //convert BCD input to decimal
+    let x = document.getElementById("input2").value;
+    let decimal = 0;
+    let power = 0;
+
+    for (let i = x.length - 1; i >= 0; i--) {
+        const digit = parseInt(x[i]);
+        decimal += digit * Math.pow(2, power);
+        power++;
+    }
+    document.getElementById("output2").innerHTML =
+    "Decimal: " + decimal + "<br>";
+
+}
