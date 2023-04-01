@@ -1,11 +1,10 @@
 const convertButton1 = document.querySelector('[convert-1]')
 const convertButton2 = document.querySelector('[convert-2]')
-convertButton1.onclick = ()    => { convert1(); }
-convertButton2.onclick = ()    => { alert ("Converting BCD to Decimal"); }
+convertButton1.onclick = ()    => { decimalToBCD(); }
+convertButton2.onclick = ()    => { bcdToDECIMAL(); }
 
-// this function is called when the convertButton1 is clicked and it increments the input take from the html element
-// with input id dec and increments it by 1 and then displays the result in the html output element with id 'y'
-function convert1() {
+// this function is called when the convertButton1 is clicked and it converts the decimal number to BCD
+function decimalToBCD() {
     const x = document.getElementById("dec").value;
 
     let packed = "";
@@ -174,3 +173,127 @@ function convert1() {
 }
 
 
+function bcdToDECIMAL() {
+    //display string "convert"
+    document.getElementById("output2").innerHTML = "CONVERTING TO BCD..." + "<br>";
+    //convert densely-packed BCD from input and output the decimal
+    let x = document.getElementById("input2").value;
+    let decimal = 0;
+    let densely_packed = x.split("");
+    let holder = new Array(12);
+
+    if (x.length == 1){
+        for (let i = 0; i < 8; i++){
+            holder.unshift(0);
+        }
+    }
+
+    else if (x.length == 2){
+        for (let i = 0; i < 4; i++){
+            holder.unshift(0);
+        }
+    }
+
+    holder[0] = densely_packed[5];
+    holder[4] = densely_packed[9];
+
+    //000
+    if (densely_packed[6] == '0') {
+        for (let i = 1; i < 4; i++){
+            holder[i] = densely_packed[i - 1];
+        }
+
+        for (let i = 5; i < 7; i++){
+            holder[i] = densely_packed[i - 2];
+        }
+
+        for (let i = 7; i < 12; i++){
+            holder[i] = densely_packed[i - 3];
+        }
+    }
+
+    //001
+    else if (densely_packed[6] == '1' && densely_packed[7] == '0' && densely_packed[8] == '0') {
+        for (let i = 1; i < 4; i++){
+            holder[i] = densely_packed[i - 1];
+        }
+
+        for (let i = 5; i < 7; i++){
+            holder[i] = densely_packed[i - 2];
+        }
+
+        holder[7] = '0';
+        holder[8] = '0';
+        holder[9] = '1';
+        holder[10] = densely_packed[0];
+        holder[11] = densely_packed[1];
+    }
+
+    //010
+    else if (densely_packed[6] == '1' && densely_packed[7] == '0' && densely_packed[8] == '1') {
+        for (let i = 1; i < 4; i++){
+            holder[i] = densely_packed[i - 1];
+        }
+
+        holder[5] = '0';
+        holder[6] = '1';
+        holder[7] = '0';
+        holder[8] = '0';
+        holder[9] = densely_packed[0];
+        holder[10] = densely_packed[1];
+        holder[11] = densely_packed[2];
+    }
+
+    //011
+    else if (densely_packed[6] == '1' && densely_packed[7] == '1' && densely_packed[8] == '0') {
+        for (let i = 1; i < 4; i++){
+            holder[i] = densely_packed[i - 1];
+        }
+
+        holder[5] = '1';
+        holder[6] = '0';
+        holder[7] = '1';
+        holder[8] = '0';
+        holder[9] = densely_packed[0];
+        holder[10] = densely_packed[1];
+        holder[11] = densely_packed[2];
+    }
+
+    //100
+    else if (densely_packed[6] == '1' && densely_packed[7] == '1' && densely_packed[8] == '1') {
+        holder[1] = '0';
+        holder[2] = '0';
+        holder[3] = '0';
+        holder[5] = '0';
+        holder[6] = '0';
+        holder[7] = '1';
+        holder[8] = '1';
+        holder[9] = '0';
+        holder[10] = densely_packed[0];
+        holder[11] = densely_packed[1];
+    }
+
+    let unpacked = holder.join("");
+
+    //convert unpacked BCD to decimal
+    let unpackedArray = unpacked.split("");
+    let decimalArray = new Array(12);
+
+    for (let i = 0; i < 12; i++){
+        if (unpackedArray[i] == '1'){
+            decimalArray[i] = Math.pow(2, 11 - i);
+        }
+        else {
+            decimalArray[i] = 0;
+        }
+    }
+
+    for (let i = 0; i < 12; i++){
+        decimal += decimalArray[i];
+    }
+
+    document.getElementById("output2").innerHTML =
+    " Densely-packed BCD: " + x + "<br>"
+    + " Unpacked BCD: " + unpacked + "<br>"
+    + " Decimal: " + decimal + "<br>";
+}
