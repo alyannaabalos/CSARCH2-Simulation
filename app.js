@@ -157,8 +157,6 @@ function convert1() {
     " Unpacked BCD: " + unpacked + "<br>" 
     + "Packed BCD: " + packed + "<br>"
     + " Densely-packed BCD: " + dpacked + "<br>" ;
-
-    document.getElementById("output2").innerHTML = holder.toString()
 }
 
 
