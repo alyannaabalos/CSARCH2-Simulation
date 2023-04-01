@@ -6,6 +6,7 @@ body {
     background-position: center;
     background-size: cover;
     height: 100%;
+    margin-bottom: -5px;
 }
 
 h1 {
