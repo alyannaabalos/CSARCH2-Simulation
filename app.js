@@ -8,5 +8,5 @@ convertButton2.onclick = ()    => { alert ("Converting BCD to Decimal"); }
 function convert1() {
     var x = document.getElementById("dec").value;
     var y = parseInt(x) + 1;
-    document.getElementById("y").innerHTML = "hi";
+    document.getElementById("y").innerHTML = y;
 }
