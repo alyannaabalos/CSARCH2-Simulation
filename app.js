@@ -31,7 +31,19 @@ function convert1() {
 
     const holder = packed.split("");
     let densely_packed = new Array(10);
-    densely_packed[2] = holder[3];
+
+    if (x.length == 1){
+        for (let i = 0; i < 8; i++){
+            holder.unshift(0);
+        }
+    }
+
+    else if (x.length == 2){
+        for (let i = 0; i < 4; i++){
+            holder.unshift(0);
+        }
+    }
+
     densely_packed[5] = holder[7];
     densely_packed[9] = holder[11];
 
@@ -41,7 +53,7 @@ function convert1() {
             densely_packed[i] = holder[i + 1];
         }
 
-        for (let i = 3; i < 4; i++){
+        for (let i = 3; i < 5; i++){
             densely_packed[i] = holder[i + 2];
         }
 
@@ -95,6 +107,7 @@ function convert1() {
     else if (holder[0] == '1' && holder[4] == '0' && holder[8] == '0') {
         densely_packed[0] = holder[9];
         densely_packed[1] = holder[10];
+        densely_packed[2] = holder[3];
         densely_packed[3] = holder[5];
         densely_packed[4] = holder[6];
         densely_packed[6] = '1';
@@ -106,6 +119,7 @@ function convert1() {
     else if (holder[0] == '1' && holder[4] == '0' && holder[8] == '1') {
         densely_packed[0] = holder[5];
         densely_packed[1] = holder[6];
+        densely_packed[2] = holder[3];
         densely_packed[3] = '0';
         densely_packed[4] = '1';
         densely_packed[6] = '1';
@@ -114,19 +128,27 @@ function convert1() {
     }
 
     //110
-    else if (holder[0] == '1' && holder[4] == '1' && holder[8] == '1') {
-        densely_packed[0] = '0';
-        densely_packed[1] = '0';
-        densely_packed[3] = '1';
-        densely_packed[4] = '1';
+    else if (holder[0] == '1' && holder[4] == '1' && holder[8] == '0') {
+        densely_packed[0] = holder[9];
+        densely_packed[1] = holder[10];
+        densely_packed[2] = holder[3];
+        densely_packed[3] = '0';
+        densely_packed[4] = '0';
         densely_packed[6] = '1';
         densely_packed[7] = '1';
         densely_packed[8] = '1';
     }
     
     //111
-    else if (holder[0] == '1' && holder[4] == '1' && holder[8] == '0') {
-
+    else if (holder[0] == '1' && holder[4] == '1' && holder[8] == '1') {
+        densely_packed[0] = '0';
+        densely_packed[1] = '0';
+        densely_packed[2] = holder[3];
+        densely_packed[3] = '1';
+        densely_packed[4] = '1';
+        densely_packed[6] = '1';
+        densely_packed[7] = '1';
+        densely_packed[8] = '1';
     }
     
     let dpacked = densely_packed.join("");
@@ -135,6 +157,8 @@ function convert1() {
     " Unpacked BCD: " + unpacked + "<br>" 
     + "Packed BCD: " + packed + "<br>"
     + " Densely-packed BCD: " + dpacked + "<br>" ;
+
+    document.getElementById("output2").innerHTML = holder.toString()
 }
 
 
