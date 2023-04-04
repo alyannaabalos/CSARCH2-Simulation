@@ -7,17 +7,65 @@ convertButton2.onclick = ()    => { bcdToDECIMAL(); }
 function decimalToBCD() {
     const x = document.getElementById("dec").value;
 
-    let packed = "";
+    // unsigned
+    if(x[0] != "+" && x[0] != "-"){
+        let unpacked = dec_to_unpacked(x);
+        let packed = dec_to_packed(x);
+        let dpacked = dec_to_densely(x, packed);
+        
+        let spaced_unpacked = unpacked.split('').map((c, i) => (i % 4 === 0 && i !== 0) ? " " + c : c).join('');
+        let spaced_packed = packed.split('').map((c, i) => (i % 4 === 0 && i !== 0) ? " " + c : c).join('');
+        let spaced_densely = dpacked.split('').map((c, i) => (i % 10 === 0 && i !== 0) ? " " + c : c).join('');
+
+        document.getElementById("output1").innerHTML = 
+        " Unpacked BCD: " + spaced_unpacked + "<br>" 
+        + "Packed BCD: " + spaced_packed + "<br>"
+        + " Densely-packed BCD: " + spaced_densely + "<br>" ;
+    }
+    //signed
+    else{
+        let packed = "";
+
+        for (let i = 1; i < x.length; i++) {
+            const digit = parseInt(x[i]);
+            for (let j = 0; j < 4; j++) {
+                const bitValue = (digit >> (3 - j)) & 1;
+                packed += bitValue.toString();
+            }
+        }
+
+        let spaced_packed = packed.split('').map((c, i) => (i % 4 === 0 && i !== 0) ? " " + c : c).join('');
+
+        if(x[0] == "+"){
+            spaced_packed = spaced_packed.concat(" 1100");
+        }
+        else{
+            spaced_packed = spaced_packed.concat(" 1101");
+        }
+
+        document.getElementById("output1").innerHTML = 
+        "Packed BCD [Signed]: " + spaced_packed + "<br>"
+    }
+}
+
+function dec_to_unpacked(x){
     let unpacked = "";
 
     for (let i = 0; i < x.length; i++) {
         const digit = parseInt(x[i]);
-
         for (let j = 0; j < 8; j++) {
             const bitValue = (digit >> (7 - j)) & 1;
             unpacked += bitValue.toString();
+            if(j%4 == 0 && j!= 0)
+                unpacked.concat(unpacked, " ");
         }
     }
+    
+    return unpacked;
+}
+
+function dec_to_packed(x){
+    let packed = "";
 
     for (let i = 0; i < x.length; i++) {
         const digit = parseInt(x[i]);
@@ -28,6 +76,10 @@ function decimalToBCD() {
         }
     }
 
+    return packed;
+}
+
+function dec_to_densely(x, packed){
     const holder = packed.split("");
     let densely_packed = new Array(10);
     let merge = new Array(10000);
@@ -163,13 +215,8 @@ function decimalToBCD() {
 
     }
 
-    
     let dpacked = merge.join("");
-
-    document.getElementById("output1").innerHTML = 
-    " Unpacked BCD: " + unpacked + "<br>" 
-    + "Packed BCD: " + packed + "<br>"
-    + " Densely-packed BCD: " + dpacked + "<br>" ;
+    return dpacked;
 }
 
 
