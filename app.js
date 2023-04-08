@@ -1,7 +1,18 @@
 const convertButton1 = document.querySelector('[convert-1]')
 const convertButton2 = document.querySelector('[convert-2]')
+const downloadBtn = document.getElementById("downloadBtn");
 convertButton1.onclick = ()    => { decimalToBCD(); }
 convertButton2.onclick = ()    => { bcdToDECIMAL(); }
+downloadBtn.onClick = ()   => { download_file(); }
+downloadBtn.onClick = ()   => { download_pressed(); }
+downloadBtn.addEventListener("click", download_file);
+downloadBtn.addEventListener("click", download_pressed);
+
+
+//this function displays an alert when the download button is clicked
+function download_pressed() {
+    alert("Downloading Results...");
+}
 
 // this function is called when the convertButton1 is clicked and it converts the decimal number to BCD
 function decimalToBCD() {
@@ -21,6 +32,9 @@ function decimalToBCD() {
         " Unpacked BCD: " + spaced_unpacked + "<br>" 
         + "Packed BCD: " + spaced_packed + "<br>"
         + " Densely-packed BCD: " + spaced_densely + "<br>" ;
+
+        const bcdResult = "Unpacked BCD:" + spaced_unpacked + "\n" + "Packed BCD:" + spaced_packed + "\n" + "Densely-packed BCD:" + spaced_densely;
+        download_file(bcdResult);
     }
     //signed
     else{
@@ -42,7 +56,8 @@ function decimalToBCD() {
         else{
             spaced_packed = spaced_packed.concat(" 1101");
         }
-
+        const bcdResult = "BCD result for Packed BCD[Signed]:" + spaced_packed;
+        download_file(bcdResult);
         document.getElementById("output1").innerHTML = 
         "Packed BCD [Signed]: " + spaced_packed + "<br>"
     }
@@ -218,7 +233,22 @@ function dec_to_densely(x, packed){
     let dpacked = merge.join("");
     return dpacked;
 }
+function download_file(bcdResult) {
 
+
+  const filename = "result.txt";
+
+  const element = document.createElement("a");
+  element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(bcdResult));
+  element.setAttribute("download", filename);
+
+  element.style.display = "none";
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.b
+}
 
 function bcdToDECIMAL() {
     //display string "convert"

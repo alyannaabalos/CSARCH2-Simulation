@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
+:root{
+    font-family: 'VT323', monospace;
+}
+
 body {
     background-image:url('images/bg.gif'); 
     background-repeat:repeat; 
@@ -56,6 +60,18 @@ button {
     vertical-align: middle;
 }
 
+/*style for relative small download button from div id download*/
+button.download {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 16px;
+  }
+  
+  #downloadBtn:hover {
+    background-color: white;
+    color: blue;
+  }
 .bcdGenerator {
     background-color:rgb(219, 182, 251);
     display: block;
