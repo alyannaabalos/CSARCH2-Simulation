@@ -5,7 +5,7 @@ convertButton1.onclick = ()    => { decimalToBCD(); }
 convertButton2.onclick = ()    => { bcdToDECIMAL(); }
 downloadBtn.onClick = ()   => { download_file(); }
 downloadBtn.onClick = ()   => { download_pressed(); }
-downloadBtn.addEventListener("click", download_file);
+convertButton1.addEventListener("click", download_pressed);
 downloadBtn.addEventListener("click", download_pressed);
 
 
@@ -233,144 +233,49 @@ function dec_to_densely(x, packed){
     let dpacked = merge.join("");
     return dpacked;
 }
-function download_file(bcdResult) {
 
 
-  const filename = "result.txt";
-
-  const element = document.createElement("a");
-  element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(bcdResult));
-  element.setAttribute("download", filename);
-
-  element.style.display = "none";
-  document.body.appendChild(element);
-
-  element.click();
-
-  document.b
-}
-
+/* this function converts the densely packed binary to decimal */
 function bcdToDECIMAL() {
-    //display string "convert"
+    //get input from html with id "packed"
+    let packed = document.getElementById("packed").value;
+    //declare variable "holder" as array
+    let holder = [];
+    //declare variable "merge" as array
+    let merge = [];
+    //declare variable "decimal" as int
+    let decimal = 0;   
+    //declare variable "dpacked" as string
+    let dpacked = "";
+
+    
     document.getElementById("output2").innerHTML = "CONVERTING TO DECIMAL..." + "<br>";
-    //convert densely-packed BCD from input and output the decimal
-    let x = document.getElementById("input2").value;
-    let decimal = 0;
-    let densely_packed = x.split("");
-    let holder = new Array(12);
-
-    if (x.length == 1){
-        for (let i = 0; i < 8; i++){
-            holder.unshift(0);
-        }
-    }
-
-    else if (x.length == 2){
-        for (let i = 0; i < 4; i++){
-            holder.unshift(0);
-        }
-    }
-
-    holder[0] = densely_packed[5];
-    holder[4] = densely_packed[9];
-
-    //000
-    if (densely_packed[6] == '0') {
-        for (let i = 1; i < 4; i++){
-            holder[i] = densely_packed[i - 1];
-        }
-
-        for (let i = 5; i < 7; i++){
-            holder[i] = densely_packed[i - 2];
-        }
-
-        for (let i = 7; i < 12; i++){
-            holder[i] = densely_packed[i - 3];
-        }
-    }
-
-    //001
-    else if (densely_packed[6] == '1' && densely_packed[7] == '0' && densely_packed[8] == '0') {
-        for (let i = 1; i < 4; i++){
-            holder[i] = densely_packed[i - 1];
-        }
-
-        for (let i = 5; i < 7; i++){
-            holder[i] = densely_packed[i - 2];
-        }
-
-        holder[7] = '0';
-        holder[8] = '0';
-        holder[9] = '1';
-        holder[10] = densely_packed[0];
-        holder[11] = densely_packed[1];
-    }
-
-    //010
-    else if (densely_packed[6] == '1' && densely_packed[7] == '0' && densely_packed[8] == '1') {
-        for (let i = 1; i < 4; i++){
-            holder[i] = densely_packed[i - 1];
-        }
-
-        holder[5] = '0';
-        holder[6] = '1';
-        holder[7] = '0';
-        holder[8] = '0';
-        holder[9] = densely_packed[0];
-        holder[10] = densely_packed[1];
-        holder[11] = densely_packed[2];
-    }
-
-    //011
-    else if (densely_packed[6] == '1' && densely_packed[7] == '1' && densely_packed[8] == '0') {
-        for (let i = 1; i < 4; i++){
-            holder[i] = densely_packed[i - 1];
-        }
-
-        holder[5] = '1';
-        holder[6] = '0';
-        holder[7] = '1';
-        holder[8] = '0';
-        holder[9] = densely_packed[0];
-        holder[10] = densely_packed[1];
-        holder[11] = densely_packed[2];
-    }
-
-    //100
-    else if (densely_packed[6] == '1' && densely_packed[7] == '1' && densely_packed[8] == '1') {
-        holder[1] = '0';
-        holder[2] = '0';
-        holder[3] = '0';
-        holder[5] = '0';
-        holder[6] = '0';
-        holder[7] = '1';
-        holder[8] = '1';
-        holder[9] = '0';
-        holder[10] = densely_packed[0];
-        holder[11] = densely_packed[1];
-    }
-
-    let unpacked = holder.join("");
-
-    //convert unpacked BCD to decimal
-    let unpackedArray = unpacked.split("");
-    let decimalArray = new Array(12);
-
-    for (let i = 0; i < 12; i++){
-        if (unpackedArray[i] == '1'){
-            decimalArray[i] = Math.pow(2, 11 - i);
-        }
-        else {
-            decimalArray[i] = 0;
-        }
-    }
-
-    for (let i = 0; i < 12; i++){
-        decimal += decimalArray[i];
-    }
 
     document.getElementById("output2").innerHTML =
-    " Densely-packed BCD: " + x + "<br>"
-    + " Unpacked BCD: " + unpacked + "<br>"
     + " Decimal: " + decimal + "<br>";
+
+    //printing the results and storing it in file
+    const bcdResult = "Densely Packed to Decimal:" + decimal
+    download_file(bcdResult);
+    document.getElementById("output2").innerHTML = 
+    "Densely Packed to Decimal: " + decimal+ "<br>"
+
 }
+
+/*function to download the results from result.txt, this function gets called after conversion of either*/
+function download_file(bcdResult) {
+    //store result to result.txt
+    const filename = "result.txt";
+    //create a temporary file in memory
+    const element = document.createElement("a");
+    //write the result stored in bcdResult.txt to element
+    element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(bcdResult));
+    element.setAttribute("download", filename);
+  
+    element.style.display = "none";
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.b
+  }
