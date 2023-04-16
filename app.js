@@ -2,7 +2,7 @@ const convertButton1 = document.querySelector('[convert-1]')
 const convertButton2 = document.querySelector('[convert-2]')
 const downloadBtn = document.getElementById("downloadBtn");
 convertButton1.onclick = ()    => { decimalToBCD(); }
-convertButton2.onclick = ()    => { bcdToDECIMAL(); }
+convertButton2.onclick = ()    => { bcdToDECIMALConversion(); }
 downloadBtn.onClick = ()   => { download_file(); }
 downloadBtn.onClick = ()   => { download_pressed(); }
 convertButton1.addEventListener("click", download_pressed);
@@ -236,30 +236,32 @@ function dec_to_densely(x, packed){
 
 
 /* this function converts the densely packed binary to decimal */
-function bcdToDECIMAL() {
-    //get input from html with id "packed"
-    let packed = document.getElementById("packed").value;
-    //declare variable "holder" as array
-    let holder = [];
-    //declare variable "merge" as array
-    let merge = [];
-    //declare variable "decimal" as int
-    let decimal = 0;   
-    //declare variable "dpacked" as string
-    let dpacked = "";
+function bcdToDECIMALConversion() {
+  //get input from html with id "dpacked"
+  let dpacked = document.getElementById("dpacked").value;
+  //declare variable "decimal" as int
+  let decimal = 0;
+  
+  for (let i = 0; i < dpacked.length; i+=4) {
+    //get the current nibble
+    let nibble = dpacked.substr(i, 4);
+    //convert the nibble to its corresponding decimal digit
+    let digit = parseInt(nibble, 2);
+    //add the digit to the decimal value
+    decimal = decimal * 10 + digit;
+  }
+  
+  //print the results
+  const outputMessage = "Decimal: " + decimal + "<br>";
+  document.getElementById("output2").innerHTML = outputMessage;
 
-    
-    document.getElementById("output2").innerHTML = "CONVERTING TO DECIMAL..." + "<br>";
+  // download result
+  download_file(decimal);
+}
 
-    document.getElementById("output2").innerHTML =
-    + " Decimal: " + decimal + "<br>";
-
-    //printing the results and storing it in file
-    const bcdResult = "Densely Packed to Decimal:" + decimal
-    download_file(bcdResult);
-    document.getElementById("output2").innerHTML = 
-    "Densely Packed to Decimal: " + decimal+ "<br>"
-
+function convertButton3Clicked() {
+  // call the bcdToDECIMALConversion function
+  bcdToDECIMALConversion();
 }
 
 /*function to download the results from result.txt, this function gets called after conversion of either*/
