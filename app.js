@@ -237,26 +237,27 @@ function dec_to_densely(x, packed){
 
 /* this function converts the densely packed binary to decimal */
 function bcdToDECIMALConversion() {
-  //get input from html with id "dpacked"
   let dpacked = document.getElementById("dpacked").value;
-  //declare variable "decimal" as int
   let decimal = 0;
+  let multiplier = 1;
   
-  for (let i = 0; i < dpacked.length; i+=4) {
-    //get the current nibble
-    let nibble = dpacked.substr(i, 4);
-    //convert the nibble to its corresponding decimal digit
-    let digit = parseInt(nibble, 2);
-    //add the digit to the decimal value
-    decimal = decimal * 10 + digit;
+  // loop through the packed BCD string from right to left
+  for (let i = dpacked.length - 1; i >= 0; i -= 4) {
+    // get the BCD value of the current digit
+    let bcdValue = parseInt(dpacked.substring(i - 3, i + 1), 2);
+    // add the decimal value of the digit to the decimal number
+    decimal += bcdValue * multiplier;
+    // multiply the multiplier by 10 for the next digit
+    multiplier *= 10;
   }
-  
-  //print the results
-  const outputMessage = "Decimal: " + decimal + "<br>";
-  document.getElementById("output2").innerHTML = outputMessage;
 
-  // download result
-  download_file(decimal);
+
+    // Print the results
+    const outputMessage = "Decimal: " + decimal + "<br>";
+    document.getElementById("output2").innerHTML = outputMessage;
+
+    // Download result
+    download_file(decimal);
 }
 
 function convertButton3Clicked() {
@@ -281,3 +282,4 @@ function download_file(bcdResult) {
   
     document.b
   }
+  
