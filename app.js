@@ -13,9 +13,9 @@ function decimalToBCD() {
         let packed = dec_to_packed(x);
         let dpacked = dec_to_densely(x, packed);
         
-        let spaced_unpacked = unpacked.split('').map((c, i) => (i % 4 === 0 && i !== 0) ? " " + c : c).join('');
-        let spaced_packed = packed.split('').map((c, i) => (i % 4 === 0 && i !== 0) ? " " + c : c).join('');
-        let spaced_densely = dpacked.split('').map((c, i) => (i % 10 === 0 && i !== 0) ? " " + c : c).join('');
+        var spaced_unpacked = unpacked.split('').map((c, i) => (i % 4 === 0 && i !== 0) ? " " + c : c).join('');
+        var spaced_packed = packed.split('').map((c, i) => (i % 4 === 0 && i !== 0) ? " " + c : c).join('');
+        var spaced_densely = dpacked.split('').map((c, i) => (i % 10 === 0 && i !== 0) ? " " + c : c).join('');
 
         document.getElementById("output1").innerHTML = 
         " Unpacked BCD: " + spaced_unpacked + "<br>" 
@@ -389,7 +389,7 @@ function bcdToDECIMALConversion() {
             return x;
         }
     
-        decimal_equiv = parseInt(packed_to_dec(packed_string));
+        var decimal_equiv = parseInt(packed_to_dec(packed_string));
         document.getElementById("output2").innerHTML = "Decimal: " + decimal_equiv + "<br>"
     }
 
