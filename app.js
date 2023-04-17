@@ -1,11 +1,13 @@
 const convertButton1 = document.querySelector('[convert-1]')
 const convertButton2 = document.querySelector('[convert-2]')
 const downloadBtn = document.querySelector('[downloadBtn]')
+const downloadBtn2 = document.querySelector('[downloadBtn2]')
 convertButton1.onclick = ()    => { decimalToBCD(); }
 convertButton2.onclick = ()    => { bcdToDECIMALConversion(); } //listener for convert button
 downloadBtn.onclick = () => { download_file(bcdResult); } //listener for download button
+downloadBtn2.onclick = () => { download_file(bcdResult); } //listener for download button
 
-//declare global variable bcdResult
+//declare global variable bcdResult to store it in result.txt after donwloadbutton is clicked
 let bcdResult = "";
 
 // this function is called when the convertButton1 is clicked and it converts the decimal number to BCD
@@ -27,7 +29,7 @@ function decimalToBCD() {
         + "Packed BCD: " + spaced_packed + "<br>"
         + " Densely-packed BCD: " + spaced_densely + "<br>" ;
 
-        bcdResult = "Unpacked BCD:" + spaced_unpacked + "\n" + "Packed BCD:" + spaced_packed + "\n" + "Densely-packed BCD:" + spaced_densely;
+        bcdResult = "Unpacked BCD:" + spaced_unpacked + "\n" + "Packed BCD:" + spaced_packed + "\n" + "Densely-packed BCD:" + spaced_densely + "\n";
         //download_file(bcdResult);
         //return spaced_densely + " " + spaced_packed + " " + spaced_unpacked;
     }
@@ -51,7 +53,7 @@ function decimalToBCD() {
         else{
             spaced_packed = spaced_packed.concat(" 1101");
         }
-        bcdResult = "BCD result for Packed BCD[Signed]:" + spaced_packed;
+        bcdResult = "BCD result for Packed BCD[Signed]:" + spaced_packed + "\n";
         // download_file(bcdResult);
         document.getElementById("output1").innerHTML = 
         "Packed BCD [Signed]: " + spaced_packed + "<br>"
@@ -396,15 +398,14 @@ function bcdToDECIMALConversion() {
             return x;
         }
     
-        var decimal_equiv = parseInt(packed_to_dec(packed_string));
+        decimal_equiv= parseInt(packed_to_dec(packed_string));
         document.getElementById("output2").innerHTML = "Decimal: " + decimal_equiv + "<br>"
     }
 
 
 
     // Download result
-    bcdResult = "Decimal equivalent:" +  decimal_equiv;
-    
+    bcdResult = "Densely Packed to Decimal:" +  decimal_equiv;  
 }
 
 function convertButton3Clicked() {
@@ -413,7 +414,7 @@ function convertButton3Clicked() {
 }
 
 /*function to download the results from result.txt, this function gets called after conversion of either*/
-function download_file(bcdResult) {
+function download_file(bcdResult, decResult) {
     //store result to result.txt
     const filename = "result.txt";
     //create a temporary file in memory
@@ -428,6 +429,8 @@ function download_file(bcdResult) {
     element.click();
   
     document.b
-  }
+  } 
+
+
 
 
