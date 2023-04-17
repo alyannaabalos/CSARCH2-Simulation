@@ -1,18 +1,7 @@
 const convertButton1 = document.querySelector('[convert-1]')
 const convertButton2 = document.querySelector('[convert-2]')
-const downloadBtn = document.getElementById("downloadBtn");
 convertButton1.onclick = ()    => { decimalToBCD(); }
 convertButton2.onclick = ()    => { bcdToDECIMALConversion(); }
-downloadBtn.onClick = ()   => { download_file(); }
-downloadBtn.onClick = ()   => { download_pressed(); }
-convertButton1.addEventListener("click", download_pressed);
-downloadBtn.addEventListener("click", download_pressed);
-
-
-//this function displays an alert when the download button is clicked
-function download_pressed() {
-    alert("Downloading Results...");
-}
 
 // this function is called when the convertButton1 is clicked and it converts the decimal number to BCD
 function decimalToBCD() {
@@ -399,7 +388,8 @@ function bcdToDECIMALConversion() {
     document.getElementById("output2").innerHTML = "Decimal: " + decimal_equiv + "<br>"
 
     // Download result
-    download_file(decimal);
+    const bcdResult = "Decimal equivalent:" +  decimal_equiv;
+    download_file(bcdResult);
 }
 
 function convertButton3Clicked() {
@@ -424,4 +414,5 @@ function download_file(bcdResult) {
   
     document.b
   }
-  
+
+
