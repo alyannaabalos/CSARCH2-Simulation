@@ -237,54 +237,18 @@ function dec_to_densely(x, packed){
 
 /* this function converts the densely packed binary to decimal */
 function bcdToDECIMALConversion() {
-  let dpacked = document.getElementById("dpacked").value;
+    let dpacked = document.getElementById("dpacked").value;
+    let holder = dpacked.split("");
+    let packed_holder = [0,0,0,0,0,0,0,0,0,0];
 
-
-
-
-/*
-  
-  // loop through the packed BCD string from right to left
-  for (let i = dpacked.length - 1; i >= 0; i -= 4) {
-    // get the BCD value of the current digit
-    let bcdValue = parseInt(dpacked.substring(i - 3, i + 1), 2);
-    // add the decimal value of the digit to the decimal number
-    decimal += bcdValue * multiplier;
-    // multiply the multiplier by 10 for the next digit
-    multiplier *= 10;
-  }
-
-*/
-    let denselyPacked = parseInt(dpacked, 2);
-    let decimal = 0;
-    let weight = 1;
-    while (denselyPacked > 0) {
-      decimal += (denselyPacked % 10) * weight;
-      denselyPacked = Math.floor(denselyPacked / 10);
-      weight *= 10;
+    if (holder[6] == 0) {
+        packed_holder[0] == 'a';
     }
-    return decimal;
-  }
 
 
-    // Print the results
-    const outputMessage = "Decimal: " + decimal + "<br>";
-    document.getElementById("output2").innerHTML = outputMessage;
+    document.getElementById("output2").innerHTML = "Decimal: " + packed_holder[0] + "<br>"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 
