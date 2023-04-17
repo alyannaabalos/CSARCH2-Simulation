@@ -27,6 +27,18 @@ label {
     line-height: 2;
 }
 
+#dlbtn {
+    display: block;
+    padding-top: 5px;
+    text-align: center;
+}
+
+.btntxt {
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
 #output1, #output2 {
     font-family: 'VT323', monospace;
     font-size: 20px;
