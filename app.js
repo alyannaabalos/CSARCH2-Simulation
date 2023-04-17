@@ -1,7 +1,12 @@
 const convertButton1 = document.querySelector('[convert-1]')
 const convertButton2 = document.querySelector('[convert-2]')
+const downloadBtn = document.querySelector('[downloadBtn]')
 convertButton1.onclick = ()    => { decimalToBCD(); }
-convertButton2.onclick = ()    => { bcdToDECIMALConversion(); }
+convertButton2.onclick = ()    => { bcdToDECIMALConversion(); } //listener for convert button
+downloadBtn.onclick = () => { download_file(bcdResult); } //listener for download button
+
+//declare global variable bcdResult
+let bcdResult = "";
 
 // this function is called when the convertButton1 is clicked and it converts the decimal number to BCD
 function decimalToBCD() {
@@ -22,8 +27,9 @@ function decimalToBCD() {
         + "Packed BCD: " + spaced_packed + "<br>"
         + " Densely-packed BCD: " + spaced_densely + "<br>" ;
 
-        const bcdResult = "Unpacked BCD:" + spaced_unpacked + "\n" + "Packed BCD:" + spaced_packed + "\n" + "Densely-packed BCD:" + spaced_densely;
-        download_file(bcdResult);
+        bcdResult = "Unpacked BCD:" + spaced_unpacked + "\n" + "Packed BCD:" + spaced_packed + "\n" + "Densely-packed BCD:" + spaced_densely;
+        //download_file(bcdResult);
+        //return spaced_densely + " " + spaced_packed + " " + spaced_unpacked;
     }
     //signed
     else{
@@ -45,10 +51,11 @@ function decimalToBCD() {
         else{
             spaced_packed = spaced_packed.concat(" 1101");
         }
-        const bcdResult = "BCD result for Packed BCD[Signed]:" + spaced_packed;
-        download_file(bcdResult);
+        bcdResult = "BCD result for Packed BCD[Signed]:" + spaced_packed;
+        // download_file(bcdResult);
         document.getElementById("output1").innerHTML = 
         "Packed BCD [Signed]: " + spaced_packed + "<br>"
+        // spaced_packed;
     }
 }
 
@@ -388,8 +395,8 @@ function bcdToDECIMALConversion() {
     document.getElementById("output2").innerHTML = "Decimal: " + decimal_equiv + "<br>"
 
     // Download result
-    const bcdResult = "Decimal equivalent:" +  decimal_equiv;
-    download_file(bcdResult);
+    bcdResult = "Decimal equivalent:" +  decimal_equiv;
+    
 }
 
 function convertButton3Clicked() {
