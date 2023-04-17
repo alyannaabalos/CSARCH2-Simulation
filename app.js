@@ -18,9 +18,9 @@ function decimalToBCD() {
         let packed = dec_to_packed(x);
         let dpacked = dec_to_densely(x, packed);
         
-        let spaced_unpacked = unpacked.split('').map((c, i) => (i % 4 === 0 && i !== 0) ? " " + c : c).join('');
-        let spaced_packed = packed.split('').map((c, i) => (i % 4 === 0 && i !== 0) ? " " + c : c).join('');
-        let spaced_densely = dpacked.split('').map((c, i) => (i % 10 === 0 && i !== 0) ? " " + c : c).join('');
+        var spaced_unpacked = unpacked.split('').map((c, i) => (i % 4 === 0 && i !== 0) ? " " + c : c).join('');
+        var spaced_packed = packed.split('').map((c, i) => (i % 4 === 0 && i !== 0) ? " " + c : c).join('');
+        var spaced_densely = dpacked.split('').map((c, i) => (i % 10 === 0 && i !== 0) ? " " + c : c).join('');
 
         document.getElementById("output1").innerHTML = 
         " Unpacked BCD: " + spaced_unpacked + "<br>" 
@@ -237,162 +237,170 @@ function bcdToDECIMALConversion() {
     let holder = dpacked.split("");
     let packed_holder= new Array(10);
 
-    let p = holder[0];
-    let q = holder[1];
-    let r = holder[2];
-    let s = holder[3];
-    let t = holder[4];
-    let u = holder[5];
-    let v = holder[6];
-    let w = holder[7];
-    let x = holder[8];
-    let y = holder[9];
-
-    //1
-    if (v == '0') {
-        packed_holder[0] = '0';
-        packed_holder[1] = p;
-        packed_holder[2] = q;
-        packed_holder[3] = r;
-        packed_holder[4] = '0';
-        packed_holder[5] = s;
-        packed_holder[6] = t;
-        packed_holder[7] = u;
-        packed_holder[8] = '0';
-        packed_holder[9] = w;
-        packed_holder[10] = x;
-        packed_holder[11] = y;
+    if (holder.length % 10 != 0) {
+        document.getElementById("output2").innerHTML = "Input length must be a multiple of 10."
     }
 
-    //2
-    else if (v == '1' && w == '0' && x == '0') {
-        packed_holder[0] = '0';
-        packed_holder[1] = p;
-        packed_holder[2] = q;
-        packed_holder[3] = r;
-        packed_holder[4] = '0';
-        packed_holder[5] = s;
-        packed_holder[6] = t;
-        packed_holder[7] = u;
-        packed_holder[8] = '1';
-        packed_holder[9] = '0';
-        packed_holder[10] = '0';
-        packed_holder[11] = y;
-    }
-
-    //3
-    else if (v == '1' && w == '0' && x == '1') {
-        packed_holder[0] = '0';
-        packed_holder[1] = p;
-        packed_holder[2] = q;
-        packed_holder[3] = r;
-        packed_holder[4] = '1';
-        packed_holder[5] = '0';
-        packed_holder[6] = '0';
-        packed_holder[7] = u;
-        packed_holder[8] = '0';
-        packed_holder[9] = s;
-        packed_holder[10] = t;
-        packed_holder[11] = y;
-    }
-
-    //4
-    else if (v == '1' && w == '1' && x == '0') {
-        packed_holder[0] = '1';
-        packed_holder[1] = '0';
-        packed_holder[2] = '0';
-        packed_holder[3] = r;
-        packed_holder[4] = '0';
-        packed_holder[5] = s;
-        packed_holder[6] = t;
-        packed_holder[7] = u;
-        packed_holder[8] = '0';
-        packed_holder[9] = p;
-        packed_holder[10] = q;
-        packed_holder[11] = y;
-    }
-
-    //5
-    else if (v == '1' && w == '1' && x == '1' && s == '0' && t == '0') {
-        packed_holder[0] = '1';
-        packed_holder[1] = '0';
-        packed_holder[2] = '0';
-        packed_holder[3] = r;
-        packed_holder[4] = '1';
-        packed_holder[5] = '0'
-        packed_holder[6] = '0'
-        packed_holder[7] = u;
-        packed_holder[8] = '0';
-        packed_holder[9] = p;
-        packed_holder[10] = q;
-        packed_holder[11] = y;
-    }
-
-    //6
-    else if (v == '1' && w == '1' && x == '1' && s == '0' && t == '1') {
-        packed_holder[0] = '1';
-        packed_holder[1] = '0';
-        packed_holder[2] = '0';
-        packed_holder[3] = r;
-        packed_holder[4] = '0';
-        packed_holder[5] = p;
-        packed_holder[6] = q;
-        packed_holder[7] = u;
-        packed_holder[8] = '1';
-        packed_holder[9] = '0';
-        packed_holder[10] = '0';
-        packed_holder[11] = y;
-    }
-
-    //7
-    else if (v == '1' && w == '1' && x == '1' && s == '1' && t == '0') {
-        packed_holder[0] = '0';
-        packed_holder[1] = p;
-        packed_holder[2] = q;
-        packed_holder[3] = r;
-        packed_holder[4] = '1';
-        packed_holder[5] = '0'
-        packed_holder[6] = '0'
-        packed_holder[7] = u;
-        packed_holder[8] = '1';
-        packed_holder[9] = '0';
-        packed_holder[10] = '0';
-        packed_holder[11] = y;
-    }
-
-
-    //8
-    else if (v == '1' && w == '1' && x == '1' && s == '1' && t == '1') {
-        packed_holder[0] = '1';
-        packed_holder[1] = '0'
-        packed_holder[2] = '0';
-        packed_holder[3] = r;
-        packed_holder[4] = '1';
-        packed_holder[5] = '0'
-        packed_holder[6] = '0'
-        packed_holder[7] = u;
-        packed_holder[8] = '1';
-        packed_holder[9] = '0';
-        packed_holder[10] = '0';
-        packed_holder[11] = y;
-    }
-
-    packed_string = packed_holder.join('');
-        
-    function packed_to_dec(packed_string){
-        let x = "";
+    else {
+        let p = holder[0];
+        let q = holder[1];
+        let r = holder[2];
+        let s = holder[3];
+        let t = holder[4];
+        let u = holder[5];
+        let v = holder[6];
+        let w = holder[7];
+        let x = holder[8];
+        let y = holder[9];
     
-        for (let i = 0; i < packed_string.length; i += 4) {
-            const bits = packed_string.substr(i, 4);
-            const digit = parseInt(bits, 2);
-            x += digit.toString();
+        //1
+        if (v == '0') {
+            packed_holder[0] = '0';
+            packed_holder[1] = p;
+            packed_holder[2] = q;
+            packed_holder[3] = r;
+            packed_holder[4] = '0';
+            packed_holder[5] = s;
+            packed_holder[6] = t;
+            packed_holder[7] = u;
+            packed_holder[8] = '0';
+            packed_holder[9] = w;
+            packed_holder[10] = x;
+            packed_holder[11] = y;
         }
     
-        return x;
+        //2
+        else if (v == '1' && w == '0' && x == '0') {
+            packed_holder[0] = '0';
+            packed_holder[1] = p;
+            packed_holder[2] = q;
+            packed_holder[3] = r;
+            packed_holder[4] = '0';
+            packed_holder[5] = s;
+            packed_holder[6] = t;
+            packed_holder[7] = u;
+            packed_holder[8] = '1';
+            packed_holder[9] = '0';
+            packed_holder[10] = '0';
+            packed_holder[11] = y;
+        }
+    
+        //3
+        else if (v == '1' && w == '0' && x == '1') {
+            packed_holder[0] = '0';
+            packed_holder[1] = p;
+            packed_holder[2] = q;
+            packed_holder[3] = r;
+            packed_holder[4] = '1';
+            packed_holder[5] = '0';
+            packed_holder[6] = '0';
+            packed_holder[7] = u;
+            packed_holder[8] = '0';
+            packed_holder[9] = s;
+            packed_holder[10] = t;
+            packed_holder[11] = y;
+        }
+    
+        //4
+        else if (v == '1' && w == '1' && x == '0') {
+            packed_holder[0] = '1';
+            packed_holder[1] = '0';
+            packed_holder[2] = '0';
+            packed_holder[3] = r;
+            packed_holder[4] = '0';
+            packed_holder[5] = s;
+            packed_holder[6] = t;
+            packed_holder[7] = u;
+            packed_holder[8] = '0';
+            packed_holder[9] = p;
+            packed_holder[10] = q;
+            packed_holder[11] = y;
+        }
+    
+        //5
+        else if (v == '1' && w == '1' && x == '1' && s == '0' && t == '0') {
+            packed_holder[0] = '1';
+            packed_holder[1] = '0';
+            packed_holder[2] = '0';
+            packed_holder[3] = r;
+            packed_holder[4] = '1';
+            packed_holder[5] = '0'
+            packed_holder[6] = '0'
+            packed_holder[7] = u;
+            packed_holder[8] = '0';
+            packed_holder[9] = p;
+            packed_holder[10] = q;
+            packed_holder[11] = y;
+        }
+    
+        //6
+        else if (v == '1' && w == '1' && x == '1' && s == '0' && t == '1') {
+            packed_holder[0] = '1';
+            packed_holder[1] = '0';
+            packed_holder[2] = '0';
+            packed_holder[3] = r;
+            packed_holder[4] = '0';
+            packed_holder[5] = p;
+            packed_holder[6] = q;
+            packed_holder[7] = u;
+            packed_holder[8] = '1';
+            packed_holder[9] = '0';
+            packed_holder[10] = '0';
+            packed_holder[11] = y;
+        }
+    
+        //7
+        else if (v == '1' && w == '1' && x == '1' && s == '1' && t == '0') {
+            packed_holder[0] = '0';
+            packed_holder[1] = p;
+            packed_holder[2] = q;
+            packed_holder[3] = r;
+            packed_holder[4] = '1';
+            packed_holder[5] = '0'
+            packed_holder[6] = '0'
+            packed_holder[7] = u;
+            packed_holder[8] = '1';
+            packed_holder[9] = '0';
+            packed_holder[10] = '0';
+            packed_holder[11] = y;
+        }
+    
+    
+        //8
+        else if (v == '1' && w == '1' && x == '1' && s == '1' && t == '1') {
+            packed_holder[0] = '1';
+            packed_holder[1] = '0'
+            packed_holder[2] = '0';
+            packed_holder[3] = r;
+            packed_holder[4] = '1';
+            packed_holder[5] = '0'
+            packed_holder[6] = '0'
+            packed_holder[7] = u;
+            packed_holder[8] = '1';
+            packed_holder[9] = '0';
+            packed_holder[10] = '0';
+            packed_holder[11] = y;
+        }
+    
+        packed_string = packed_holder.join('');
+            
+        function packed_to_dec(packed_string){
+            let x = "";
+        
+            for (let i = 0; i < packed_string.length; i += 4) {
+                const bits = packed_string.substr(i, 4);
+                const digit = parseInt(bits, 2);
+                x += digit.toString();
+            }
+        
+            return x;
+        }
+    
+        var decimal_equiv = parseInt(packed_to_dec(packed_string));
+        document.getElementById("output2").innerHTML = "Decimal: " + decimal_equiv + "<br>"
     }
 
-    decimal_equiv = parseInt(packed_to_dec(packed_string));
-    document.getElementById("output2").innerHTML = "Decimal: " + decimal_equiv + "<br>"
+
 
     // Download result
     bcdResult = "Decimal equivalent:" +  decimal_equiv;
