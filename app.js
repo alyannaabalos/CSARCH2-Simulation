@@ -5,10 +5,11 @@ const downloadBtn2 = document.querySelector('[downloadBtn2]')
 convertButton1.onclick = ()    => { decimalToBCD(); }
 convertButton2.onclick = ()    => { bcdToDECIMALConversion(); } //listener for convert button
 downloadBtn.onclick = () => { download_file(bcdResult); } //listener for download button
-downloadBtn2.onclick = () => { download_file(bcdResult); } //listener for download button
+downloadBtn2.onclick = () => { download_file2(decResult); } //listener for download button
 
 //declare global variable bcdResult to store it in result.txt after donwloadbutton is clicked
 let bcdResult = "";
+let decResult = "";
 
 // this function is called when the convertButton1 is clicked and it converts the decimal number to BCD
 function decimalToBCD() {
@@ -399,7 +400,7 @@ function bcdToDECIMALConversion() {
     }
 
     // Download result
-    bcdResult = "Densely Packed to Decimal:" +  decimal_equiv;  
+    decResult = "Densely Packed to Decimal:" +  decimal_equiv;  
 }
 
 function packed_to_dec(packed_string){
@@ -414,19 +415,32 @@ function packed_to_dec(packed_string){
     return x;
 }
 
-function convertButton3Clicked() {
-  // call the bcdToDECIMALConversion function
-  bcdToDECIMALConversion();
-}
 
 /*function to download the results from result.txt, this function gets called after conversion of either*/
-function download_file(bcdResult, decResult) {
+function download_file(bcdResult) {
     //store result to result.txt
-    const filename = "result.txt";
+    const filename = "decimal-to-bcd.txt";
     //create a temporary file in memory
     const element = document.createElement("a");
     //write the result stored in bcdResult.txt to element
     element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(bcdResult));
+    element.setAttribute("download", filename);
+  
+    element.style.display = "none";
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.b
+  } 
+
+  function download_file2(decResult) {
+    //store result to result.txt
+    const filename = "denselypacked-to-decimal.txt";
+    //create a temporary file in memory
+    const element = document.createElement("a");
+    //write the result stored in bcdResult.txt to element
+    element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(decResult));
     element.setAttribute("download", filename);
   
     element.style.display = "none";
