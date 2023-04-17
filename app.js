@@ -238,8 +238,11 @@ function dec_to_densely(x, packed){
 /* this function converts the densely packed binary to decimal */
 function bcdToDECIMALConversion() {
   let dpacked = document.getElementById("dpacked").value;
-  let decimal = 0;
-  let multiplier = 1;
+
+
+
+
+/*
   
   // loop through the packed BCD string from right to left
   for (let i = dpacked.length - 1; i >= 0; i -= 4) {
@@ -251,10 +254,39 @@ function bcdToDECIMALConversion() {
     multiplier *= 10;
   }
 
+*/
+    let denselyPacked = parseInt(dpacked, 2);
+    let decimal = 0;
+    let weight = 1;
+    while (denselyPacked > 0) {
+      decimal += (denselyPacked % 10) * weight;
+      denselyPacked = Math.floor(denselyPacked / 10);
+      weight *= 10;
+    }
+    return decimal;
+  }
+
 
     // Print the results
     const outputMessage = "Decimal: " + decimal + "<br>";
     document.getElementById("output2").innerHTML = outputMessage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Download result
     download_file(decimal);
